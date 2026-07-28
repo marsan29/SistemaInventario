@@ -1,1 +1,6 @@
-﻿Console.WriteLine("Hello, World!");
+﻿
+using SistemaInventario.UI;
+
+MenuPrincipal menu = new MenuPrincipal();
+
+menu.Iniciar();
