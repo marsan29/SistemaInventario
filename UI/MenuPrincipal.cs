@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SistemaInventario.Services;
 using SistemaInventario.Utils;
 namespace SistemaInventario.UI; 
 
 internal class MenuPrincipal
 {
     private readonly string _separador = new('=', 41); // es un dato propio del menú.
+    private readonly ProductoService productoService;
+    public MenuPrincipal(ProductoService productoService)
+    {
+        this.productoService = productoService;
+    }
     public void Iniciar()
     {
         bool salir = false;
@@ -16,7 +22,6 @@ internal class MenuPrincipal
             Console.Clear();
             MostrarBanner();
             MostrarOpciones();
-
             string? opcion = LeerOpcion();
 
             ProcesarOpcion(opcion, ref salir);
@@ -51,7 +56,7 @@ internal class MenuPrincipal
             return;                             // salir temprano cuando un dato no es válido.
         }
 
-        switch (opcion.Trim())
+        switch (opcion)
         {
             case "1":
                 MostrarMenuProductos();
@@ -75,10 +80,11 @@ internal class MenuPrincipal
                 break;
             default:
                 Console.WriteLine("Ingresa una opción válida");
+                ConsolaHelper.Pausar();
                 break;
         }
 
-        ConsolaHelper.Pausar();
+        //ConsolaHelper.Pausar();
     }
 
     private string? LeerOpcion()
@@ -89,27 +95,32 @@ internal class MenuPrincipal
 
     private void MostrarMenuProductos()
     {
-        Console.WriteLine("Módulo Productos en construcción.");
+        MenuProductos menuProductos = new(productoService); // target-typed new
+        menuProductos.Iniciar();
     }
 
     private void MostrarMenuCategorias()
     {
         Console.WriteLine("Módulo Categorías en construcción.");
+        ConsolaHelper.Pausar();
     }
 
     private void MostrarMenuEntradas()
     {
         Console.WriteLine("Módulo Entradas en construcción.");
+        ConsolaHelper.Pausar();
     }
 
     private void MostrarMenuSalidas()
     {
         Console.WriteLine("Módulo Salidas en construcción.");
+        ConsolaHelper.Pausar();
     }
 
     private void MostrarMenuReportes()
     {
         Console.WriteLine("Módulo Reportes en construcción.");
+        ConsolaHelper.Pausar();
     }
 
 
