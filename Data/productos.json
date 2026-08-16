@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Laptop",
+    "Precio": 2,
+    "Stock": 0,
+    "CategoriaId": 3
+  },
+  {
+    "Id": 2,
+    "Nombre": "monitor",
+    "Precio": 677.99,
+    "Stock": 34,
+    "CategoriaId": 1
+  },
+  {
+    "Id": 4,
+    "Nombre": "Headphones Sony",
+    "Precio": 149.99,
+    "Stock": 3,
+    "CategoriaId": 2
+  },
+  {
+    "Id": 5,
+    "Nombre": "Lampara LED",
+    "Precio": 1.25,
+    "Stock": 34,
+    "CategoriaId": 23
+  }
+]

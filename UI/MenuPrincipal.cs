@@ -22,7 +22,7 @@ internal class MenuPrincipal
             Console.Clear();
             MostrarBanner();
             MostrarOpciones();
-            string? opcion = LeerOpcion();
+            string? opcion = ConsolaHelper.LeerOpcion();
 
             ProcesarOpcion(opcion, ref salir);
 
@@ -87,15 +87,15 @@ internal class MenuPrincipal
         //ConsolaHelper.Pausar();
     }
 
-    private string? LeerOpcion()
-    {
-        Console.Write("Seleccione una opción: ");
-        return Console.ReadLine();
-    }
+    //private string? LeerOpcion()
+    //{
+    //    Console.Write("Seleccione una opción: ");
+    //    return Console.ReadLine();
+    //}
 
     private void MostrarMenuProductos()
     {
-        MenuProductos menuProductos = new(productoService); // target-typed new
+        MenuProductos menuProductos = new(productoService); // target-typed new // Inyecccion de dependencias
         menuProductos.Iniciar();
     }
 

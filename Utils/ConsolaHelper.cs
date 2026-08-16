@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SistemaInventario.Utils
 {
+    // Este es nuestro pequeño conjunto de herramientas reutilizables para la consola.
     internal static class ConsolaHelper
     {
         public static void Pausar()
@@ -19,7 +20,7 @@ namespace SistemaInventario.Utils
             while (true)
             {
                 Console.Write(mensaje);
-                if (int.TryParse(Console.ReadLine(), out int entero)) //Guard clause?
+                if (int.TryParse(Console.ReadLine(), out int entero)) 
                 {
                     return entero;
                 }
@@ -47,7 +48,7 @@ namespace SistemaInventario.Utils
             while (true)
             {
                 Console.Write(mensaje);
-                string texto = Console.ReadLine();
+                string? texto = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(texto) || int.TryParse(texto, out _))
                 {
                     Console.WriteLine("Ingresa un nombre válido");
@@ -58,5 +59,48 @@ namespace SistemaInventario.Utils
             }
         }
 
+        public static string? LeerOpcion()
+        {
+            Console.Write("Seleccione una opción: ");
+            return Console.ReadLine();
+        }
+
+        public static decimal LeerPrecio(string mensaje)
+        {
+            while (true)
+            {
+                decimal precio = LeerDecimal(mensaje);
+
+                if (precio > 0)
+                {
+                    return precio;
+                }
+                else
+                {
+                    Console.WriteLine("Ingresa un precio válido");
+                }
+            }
+        }
+        public static int LeerStock(string mensaje)
+        {
+            while(true)
+            {
+                int stock = LeerEntero(mensaje);
+
+                if(stock >= 0)
+                {
+                    return stock;
+                }
+                else
+                {
+                    Console.WriteLine("Ingresa un stock válido");
+                }
+
+            }
+        }
+
+
+
+        
     }
 }
