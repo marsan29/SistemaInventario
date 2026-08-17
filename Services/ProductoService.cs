@@ -24,9 +24,20 @@ internal class ProductoService
     public void AgregarProducto(Producto producto) // Create
     {
         producto.Id = _nextId;
-        _nextId++;
+        
         _productos.Add(producto);
-        _jsonService.GuardarProductos(_productos);
+
+        try
+        {
+            _jsonService.GuardarProductos(_productos);
+            _nextId++;
+        }
+        catch
+        {
+            _productos.Remove(producto); // Rollback
+            throw;
+        }
+
     }
 
     public IReadOnlyList<Producto> ObtenerProductos() // READ
@@ -53,8 +64,19 @@ internal class ProductoService
 
     public void EliminarProducto(Producto producto) // DELETE
     {
+        var indiceProducto = _productos.IndexOf(producto);
         _productos.Remove(producto);
-        _jsonService.GuardarProductos(_productos);
+
+        try
+        {
+            _jsonService.GuardarProductos(_productos);
+        }
+        catch
+        {
+            _productos.Insert(indiceProducto, producto);
+            throw;
+        }
+        
     }
 
 }

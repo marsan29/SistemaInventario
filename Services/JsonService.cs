@@ -24,7 +24,7 @@ namespace SistemaInventario.Services
             }
             catch (UnauthorizedAccessException ex)
             {
-                throw new PersistenciaException("No se pudo acceder al archivo de productos. Sin permido", ex);
+                throw new PersistenciaException("No se pudo acceder al archivo de productos. Sin permiso", ex);
             }
             catch (IOException ex)
             {

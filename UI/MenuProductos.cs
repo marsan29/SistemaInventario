@@ -52,13 +52,7 @@ internal class MenuProductos
         Console.WriteLine("5. Eliminar producto");
         Console.WriteLine("0. Volver");
         Console.WriteLine();
-    }
-
-    //private string LeerOpcion()
-    //{
-    //    Console.Write("Seleccione una opción: ");
-    //    return Console.ReadLine();
-    //}
+    }   
 
     private void ProcesarOpcion(string? opcion, ref bool salir) 
     {
@@ -180,15 +174,16 @@ internal class MenuProductos
         }
         else
         {
-            Console.WriteLine("Producto encontrado");
-            Console.WriteLine(producto);
-            Console.WriteLine();
+            Console.WriteLine("Producto encontrado");            
         }
 
         bool salir = false;
 
         while (!salir)
         {
+
+            Console.WriteLine(producto);
+            Console.WriteLine();
             Console.WriteLine("¿Qué desea editar?");
             MostrarOpciones();
             string? opcion = ConsolaHelper.LeerOpcion();
@@ -244,6 +239,7 @@ internal class MenuProductos
         Console.Clear();
         Console.WriteLine("===== EDITANDO NOMBRE =====");
         Console.WriteLine();
+        string nombreAnterior = producto.Nombre;
         producto.Nombre = ConsolaHelper.LeerTexto("Ingresa el nuevo nombre: ");
         Console.Clear();
         
@@ -251,11 +247,11 @@ internal class MenuProductos
         {
             _productoService.ActualizarProducto(); // Actualizamos el JSON
             Console.WriteLine("Nombre Actualizado");
-            Console.WriteLine();
-            Console.WriteLine(producto);
+            Console.WriteLine();            
         }
         catch (PersistenciaException ex)
         {
+            producto.Nombre = nombreAnterior;
             Console.WriteLine(ex.Message);
             return;
         }
@@ -267,17 +263,18 @@ internal class MenuProductos
         Console.Clear();
         Console.WriteLine("===== EDITANDO PRECIO =====");
         Console.WriteLine();
-        producto.Precio = ConsolaHelper.LeerPrecio("Ingresa el nuevo precio: ");
+        decimal precioAnterior = producto.Precio;
+        producto.Precio = ConsolaHelper.LeerPrecio("Ingresa el nuevo precio: "); 
         Console.Clear();
         try
         {
             _productoService.ActualizarProducto(); // Actualizamos el JSON
             Console.WriteLine("Precio Actualizado");
             Console.WriteLine();
-            Console.WriteLine(producto);
         }
         catch (PersistenciaException ex)
         {
+            producto.Precio = precioAnterior;
             Console.WriteLine(ex.Message);
             return;
         }
@@ -289,6 +286,7 @@ internal class MenuProductos
         Console.Clear();
         Console.WriteLine("===== EDITANDO STOCK =====");
         Console.WriteLine();
+        int stockAnterior = producto.Stock;
         producto.Stock = ConsolaHelper.LeerStock("Ingresa el nuevo stock: ");
         Console.Clear();
         try
@@ -296,10 +294,11 @@ internal class MenuProductos
             _productoService.ActualizarProducto(); // Actualizamos el JSON
             Console.WriteLine("Stock Actualizado");
             Console.WriteLine();
-            Console.WriteLine(producto);
+            
         }
         catch (PersistenciaException ex)
         {
+            producto.Stock = stockAnterior;
             Console.WriteLine(ex.Message);
             return;
         }
@@ -311,17 +310,18 @@ internal class MenuProductos
         Console.Clear();
         Console.WriteLine("===== EDITANDO CATEGORIA =====");
         Console.WriteLine();
+        int categoriaAnterior = producto.CategoriaId;
         producto.CategoriaId = ConsolaHelper.LeerEntero("Ingresa la nueva categoría: ");
         Console.Clear();      
         try
         {
             _productoService.ActualizarProducto(); // Actualizamos el JSON
             Console.WriteLine("Categoria Actualizada");
-            Console.WriteLine();
-            Console.WriteLine(producto);
+            Console.WriteLine();            
         }
         catch (PersistenciaException ex)
         {
+            producto.CategoriaId = categoriaAnterior;
             Console.WriteLine(ex.Message);
             return;
         }
@@ -365,7 +365,7 @@ internal class MenuProductos
                 try
                 {
                     _productoService.EliminarProducto(producto);
-                    Console.WriteLine("Producto eliminado correctamente.");
+                    Console.WriteLine("Producto eliminado correctamente."); 
                     return;
                 }
                 catch (PersistenciaException ex)
